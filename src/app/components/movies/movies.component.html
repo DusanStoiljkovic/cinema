@@ -1,6 +1,6 @@
 <div class="container" *ngIf="movies">
     <div class="card" *ngFor="let movie of movies;">
-        <img src="" alt="Slika Filma">
+        <img src="{{getImage(movie.poster_path)}}" alt="Slika Filma">
         <div class="text-wrapper">
             <h5>{{ movie.title }}</h5>
             <p>Movie release date: {{ movie.release_date }}</p>

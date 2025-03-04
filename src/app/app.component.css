@@ -5,3 +5,17 @@ html, body {
 }
 
 
+app-hero {
+  display: block;
+  position: relative; /* NE SME biti absolute ili fixed */
+  width: 100%;
+  min-height: 500px; /* Prilagodi visinu */
+  padding: 50px 0;
+}
+
+app-movies {
+  display: block;
+  position: relative;
+  width: 100%;
+  padding: 20px;
+}
