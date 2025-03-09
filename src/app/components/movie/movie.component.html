@@ -1,0 +1,23 @@
+<div class="movie-details-container">
+    <img [src]="movie!.posterImage" [alt]="movie!.title" class="movie-poster">
+    
+    <div class="movie-info">
+        <h1>{{ movie!.title }}</h1>
+        <p><strong>Datum početka:</strong> {{ movie!.startDate }}</p>
+        <p><strong>Opis:</strong> {{ movie!.descriptionShortCalculated }}</p>
+        
+        <h3>Rezervacija karte</h3>
+        <label for="tickets">Broj karata:</label>
+        <input type="number" id="tickets" [(ngModel)]="numberOfTickets" min="1" max="10">
+        <br>
+        <label for="showTime">Termin: </label>
+        <select name="showTime">
+            <option *ngFor="let time of allShowTimes"  value="time">{{ time }}</option>
+        </select>
+        <label for="hall">Sala: </label>
+        <span></span>
+        <br>
+        <button mat-button (click)="reserveTicket()" class="reserve-btn">Rezerviši kartu</button>
+        <button mat-button (click)="goBack()" class="back-btn">Nazad</button>
+    </div>
+</div>

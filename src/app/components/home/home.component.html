@@ -1,0 +1,27 @@
+<div class="container">
+    <div class="hero">
+        <video src="https://s3proxygw.cineplexx.at/cms-live/asset/_default_upload_bucket/mickey%2017%20rs.mp4" autoplay muted loop></video>
+    </div>
+
+    <h1>Top Movies</h1>
+    <div class="top-movies">
+        <div class="card" style="width: 18rem;" *ngFor="let movie of movies" [routerLink]="['/movie', movie.id]">
+            <img [src]="movie.posterImage" class="card-img-top" [alt]="movie.title">
+            <div class="card-body">
+            <h6 class="card-text">{{ movie.title }}</h6>
+            <p>{{ movie.startDate }}</p>
+            </div>
+        </div>
+    </div>
+
+    <h1>Top Series</h1>
+    <div class="top-movies">
+        <div class="card" style="width: 18rem;" *ngFor="let movie of movies" [routerLink]="['/movie', movie.id]">
+            <img [src]="movie.posterImage" class="card-img-top" [alt]="movie.title">
+            <div class="card-body">
+            <h6 class="card-text">{{ movie.title }}</h6>
+            <p>{{ movie.startDate }}</p>
+            </div>
+        </div>
+    </div>
+</div>

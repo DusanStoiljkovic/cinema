@@ -1,0 +1,36 @@
+.movie-details-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+    padding: 20px;
+    color: whitesmoke;
+}
+
+.movie-poster {
+    width: 300px;
+    border-radius: 10px;
+}
+
+.movie-info {
+    max-width: 500px;
+}
+
+.reserve-btn, .back-btn {
+    margin-top: 10px;
+    padding: 10px 20px;
+    border: none;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+.reserve-btn {
+    background-color: #28a745;
+    color: white;
+}
+
+.back-btn {
+    background-color: #007bff;
+    color: white;
+    margin-left: 10px;
+}

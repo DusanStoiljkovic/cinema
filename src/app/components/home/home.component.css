@@ -1,0 +1,28 @@
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.hero {
+    text-align: center;
+}
+
+.top-movies {
+    display: flex;
+}
+
+.card {
+    min-width: 300px;
+    margin-right: 10px;
+    background-color: transparent;
+    color: whitesmoke;
+    border: none;
+}
+
+h1 {
+    color: whitesmoke;
+    margin-top: 50px;
+}
+
+
+

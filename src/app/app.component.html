@@ -1,7 +1,15 @@
-<app-navbar></app-navbar>
-
-<app-hero></app-hero>
-
-<app-movies></app-movies>
+<mat-toolbar color="accent">
+    <a href="/" style="text-decoration: none; color: whitesmoke; font-size: 20px;" mat-button>
+        <i class="fa-solid fa-film"></i> 
+        iWatch
+        <span class="spacer"></span>
+    </a>
+    <div class="toolbar-links">
+        <a routerLink="/" mat-button>Home</a>
+        <a routerLink="/movies" mat-button>Movies</a>
+        <a routerLink="/series" mat-button>Series</a>
+        <a routerLink="/user" mat-button>Profile</a>
+    </div>
+</mat-toolbar>
 
 <router-outlet></router-outlet>
