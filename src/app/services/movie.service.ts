@@ -625,15 +625,15 @@ export class MovieService {
 
   constructor() {}
 
-  static getMovie(num: number) {
+  public static getMovie(num: number) {
     return this.movies!.slice(0, num)
   }
 
-  static getAllMovies() {
+  public static getAllMovies() {
     return this.movies!
   }
 
-  static getMovieById(id: string) {
+  public static getMovieById(id: string) {
     const movies = this.getAllMovies()
     for(let movie of movies) {
       if(movie.id == id) {
@@ -654,7 +654,7 @@ export class MovieService {
     return this.allShowTimes.sort(() => 0.5 - Math.random()).slice(0, numShowTimes)
   }
 
-  getShowTimes(): {[key: string]: string[]} {
+  public getShowTimes(): {[key: string]: string[]} {
     let schedule: { [key: string]: string[] } = {}
 
     MovieService.halls.forEach(hall => {

@@ -25,5 +25,6 @@ export interface MovieModel {
      movieCountryCMS: string[],
      distributorName: string,
      synopsis: string,
-     shortSynopsis: string
+     shortSynopsis: string,
+     
 }

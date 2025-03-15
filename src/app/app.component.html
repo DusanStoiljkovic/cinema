@@ -7,8 +7,15 @@
     <div class="toolbar-links">
         <a routerLink="/" mat-button>Home</a>
         <a routerLink="/movies" mat-button>Movies</a>
-        <a routerLink="/series" mat-button>Series</a>
-        <a routerLink="/user" mat-button>Profile</a>
+        <a [routerLink]="service!.getActiveUsers() ? '/user' : '/login'" mat-button>Profile</a>
+        <a *ngIf="!service!.getActiveUsers()" routerLink="/login" mat-button>Login</a>
+        <a *ngIf="service!.getActiveUsers()" (click)="doLogout()" mat-button>Logout</a>
+        <a routerLink="/cart" mat-button>
+            <div class="cart">
+                <i class="fa-solid fa-cart-shopping"></i>
+                <span class="total-price">  $0.00</span>
+            </div>
+        </a>
     </div>
 </mat-toolbar>
 
