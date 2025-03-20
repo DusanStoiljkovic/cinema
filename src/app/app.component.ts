@@ -8,6 +8,8 @@ import { MatButtonModule } from '@angular/material/button';
 import { NgIf } from '@angular/common';
 import { UserService } from './services/user.service';
 import { Router } from '@angular/router';
+import { CartModel } from './models/cart.model';
+import { CartService } from './services/cart.service';
  
 @Component({
   selector: 'app-root',
@@ -18,14 +20,24 @@ import { Router } from '@angular/router';
 })
 export class AppComponent {
   title = 'cinema';
-  
-  public service = UserService
+  public cart: CartModel | null = null
 
-  constructor(private router: Router) {}
+  constructor(private router: Router) {
+
+  }
+
+  getTotalPrice() {
+    return CartService.getCart().totalPrice
+  }
+
+  getActiveUsers() {
+    return UserService.getActiveUsers()
+  }
+
   
   doLogout() {
     localStorage.removeItem('active')
+    localStorage.removeItem('cart')
     this.router.navigate(['/login'])
-
   }
 }

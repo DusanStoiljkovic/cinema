@@ -8,8 +8,7 @@ import { OrderModel } from '../models/order.model';
 
 export class UserService {
 
-    public static retrieveUsers(): UserModel[] {
-    
+    public static retrieveUsers(): UserModel[] {    
         if(!localStorage.getItem('users')) {
            const arr = [{
             firstName: 'Dusan',
@@ -26,6 +25,10 @@ export class UserService {
         }
 
         return JSON.parse(localStorage.getItem('users')!)
+    }
+
+    public static getUserById(id: number) {
+        
     }
 
     public static doLogin(email: string, password: string): boolean {
@@ -48,13 +51,15 @@ export class UserService {
                 return true 
     }
 
-    public static getActiveUsers() {
-        const arr = this.retrieveUsers()
+    public static getActiveUsers(): any {
+        if(typeof window !== 'undefined' && localStorage) {
+            const arr = this.retrieveUsers()
         const active = localStorage.getItem('active')
         if(!active) 
             return null
 
         return arr.find(user => user.email === active) || null
+        }
     }
 
     public static createOrder(order: OrderModel) {
