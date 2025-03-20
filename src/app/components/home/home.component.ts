@@ -12,10 +12,12 @@ import { RouterLink } from '@angular/router';
   imports: [CommonModule, MatButtonModule, RouterLink]
 })
 export class HomeComponent {
-  public movies: MovieModel[] | null = [];
+  public movies: MovieModel[] | null = null;
 
-  constructor() { 
-    this.movies = MovieService.movies
+  constructor(public api: MovieService) { 
+    this.api.getTrending().subscribe((res: MovieModel[]) => {
+      this.movies = res
+    }) 
   }
 
 }

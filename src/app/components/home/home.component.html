@@ -14,9 +14,9 @@
         </div>
     </div>
 
-    <h1>Top Series</h1>
+    <h1>Trending</h1>
     <div class="top-movies">
-        <div class="card" style="width: 18rem;" *ngFor="let movie of movies | slice:0:4" [routerLink]="['/movie', movie.id]">
+        <div class="card" style="width: 18rem;" *ngFor="let movie of movies | slice:4:8" [routerLink]="['/movie', movie.id]">
             <img [src]="movie.posterImage" class="card-img-top" [alt]="movie.title">
             <div class="card-body">
             <h6 class="card-text">{{ movie.title }}</h6>

@@ -20,14 +20,16 @@ import { ToastrService } from 'ngx-toastr';
   styleUrl: './movie.component.css'
 })
 export class MovieComponent {
-  public movie: MovieModel | null = null
+  public movie: MovieModel | undefined = undefined
   public numberOfTickets: number = 0
   public showTime: string = ''
   public allShowTimes: string[] = MovieService.allShowTimes
 
-  constructor(private route: ActivatedRoute, private router: Router, private toastr: ToastrService) {
+  constructor(private route: ActivatedRoute, private router: Router, private toastr: ToastrService, private api: MovieService) {
     route.params.subscribe(params => {
-      this.movie = MovieService.getMovieById(params['id'])
+      this.api.getTrending().subscribe((res: MovieModel[]) => {
+        this.movie = res.find(obj => obj.id === params['id'])
+      })
     })
   }
 

@@ -1,5 +1,9 @@
 import { Injectable } from '@angular/core';
 import { MovieModel } from '../models/movie.model';
+import { HttpClient } from '@angular/common/http';
+import { Observable, map } from 'rxjs';
+import { JsonPipe } from '@angular/common';
+import { keyframes } from '@angular/animations';
 
 @Injectable({
     providedIn: 'root',
@@ -617,13 +621,55 @@ export class MovieService {
   ],
   "distributorName": "Taramount",
   "synopsis": "Dvostruka dobitnica Oskara Rene Zelveger vraća se ulozi koja je zauvek stvorila heroinu romantične komedije, ženu čiji je neponovljiv pristup životu i ljubavi redefinisao čitav filmski žanr.\n\nBridžet Džouns se prvi put pojavila na policama u književnom fenomenu Helen Filding „Dnevnik Bridžet Džouns“, koji je postao globalni bestseler i filmski blokbaster. Kao samohrana žena koja živi u Londonu, Bridžet Džouns je na specifičan način upoznala svet sa svojim romantičnim avanturama, a njena sposobnost da trijumfuje uprkos nedaćama dovela ju je do toga da se konačno uda za vrhunskog advokata Marka Darsija i postane majka njihovog dečaka. Konačno srećni.\n\nAli u filmu „Bridžet Džouns – Luda za njim“, Bridžet je ponovo sama, udovica je već četiri godine, jer je Mark ubijen u humanitarnoj misiji u Sudanu. Ona je sada samohrana majka devetogodišnjeg Bilija i četvorogodišnje Mejbl i zaglavljena je u emocionalnom vrtlogu, odgajajući svoju decu uz pomoć svojih odanih prijatelja, pa čak i svog bivšeg ljubavnika Danijela Klivera (Hju Grant).\n\nPod pritiskom svojih najbližih — Šaz, Džud i Toma, njene koleginice Mirande, majke i njenog ginekologa doktorke Rolings (dobitnica Oskara Ema Tompson) — da prokrče novi put ka životu i ljubavi, Bridžet se vraća na posao, isprobavajući čak i aplikacije za upoznavanje, gde ubrzo počne da je proganja sanjivi i entuzijastični mlađi muškarac (Leo Vudal iz Belog Lotusa). Žonglirajući između posla, kuće i romanse, Bridžet se bori sa osudom savršenih majki u školi, brine za Bilija kome nedostaje njegov otac i upušta se u niz neprijatnih susreta sa Bilijevim nastavnikom nauke (kandidat za Oskara Čuitel Edžiofor).",
-  "shortSynopsis": "Četvrti nastavak poznate i veoma uspešne romantične komedije, zasnovan na istoimenom romanu."
-    }
-  ]
+  "shortSynopsis": "Četvrti nastavak poznate i veoma uspešne romantične komedije, zasnovan na istoimenom romanu."}]
   public static readonly allShowTimes = ['12:00', '15:00', '18:00', '21:00']
   public static readonly halls = ['Sala 1', 'Sala 2', 'Sala 3', 'Sala 4', 'Sala 5'];
+  private apiUrl = `https://app.cineplexx.rs/api/v2/movies?date=${this.formatDate(new Date())}&location=all`;
+  public testMovie: MovieModel[] = []
 
-  constructor() {}
+  private formatDate(date: Date): string {
+    const year = date.getFullYear();
+    const month = (date.getMonth() + 1).toString().padStart(2, '0');
+    const day = date.getDate().toString().padStart(2, '0');
+    return `${year}-${month}-${day}`;
+  }
+
+  constructor(private http: HttpClient) {}
+
+  public getTrending(): Observable<MovieModel[]> {
+    return this.http.get<any>(this.apiUrl).pipe(
+      map(response => response.map((movie: any) => ({
+        id: movie.id,
+        posterImage: movie.posterImage,
+        title: movie.title,
+        descriptionCalculated: movie.descriptionCalculated || '',
+        descriptionShortCalculated: movie.descriptionShortCalculated || '',
+        trailers: movie.trailers 
+            ? movie.trailers.map((trailer: any) => ({
+              trailerKey: trailer.trailerKey ?? '',
+              keyframeUrl: trailer.keyframeUrl ?? '',
+              videoUrl: trailer.videoUrl ?? '',
+              iosUrl: trailer.iosUrl ?? '',
+              androidUrl: trailer.androidUrl ?? '',
+              universalPlayerUrl: trailer.universalPlayerUrl ?? '',
+            })) : [],
+        director: movie.director || '',
+        actors: movie.actors || [],
+        startDate: movie.startDate,
+        openingDate: movie.openingDate,
+        genres: movie.genres || [],
+        comingSoon: movie.comingSoon,
+        isScheduledAtCinema: movie.isScheduledAtCinema,
+        rating: movie.rating || '',
+        runTime: movie.runTime || 0,
+        gallery: movie.gallery || [],
+        movieCountryCMS: movie.movieCountryCMS || [],
+        distributorName: movie.distributorName || '',
+        synopsis: movie.synopsis || '',
+        shortSynopsis: movie.shortSynopsis || ''
+      })))
+    );
+  }
 
   public static getMovie(num: number) {
     return this.movies!.slice(0, num)
