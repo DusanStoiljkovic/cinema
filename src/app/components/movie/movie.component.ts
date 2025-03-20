@@ -10,6 +10,7 @@ import { MatFormField } from '@angular/material/form-field';
 import { CartService } from 'src/app/services/cart.service';
 import { UserService } from 'src/app/services/user.service';
 import { AppComponent } from 'src/app/app.component';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 
@@ -24,7 +25,7 @@ export class MovieComponent {
   public showTime: string = ''
   public allShowTimes: string[] = MovieService.allShowTimes
 
-  constructor(private route: ActivatedRoute, private router: Router) {
+  constructor(private route: ActivatedRoute, private router: Router, private toastr: ToastrService) {
     route.params.subscribe(params => {
       this.movie = MovieService.getMovieById(params['id'])
     })
@@ -47,7 +48,7 @@ export class MovieComponent {
           status: 'ordered',
           rating: null
       }, 0)
-      alert('Uspesno ste rezervisali')
+      this.toastr.success('Uspesno ste rezervisali', 'Obavestenje')
     } else {
       movie.count += this.numberOfTickets
       CartService.updateCart(cart)

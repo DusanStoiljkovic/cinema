@@ -6,6 +6,9 @@ import { MatInputModule } from '@angular/material/input';
 import { ActivatedRoute, Route, RouterLink } from '@angular/router';
 import { UserService } from 'src/app/services/user.service';
 import { Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
+
+
 
 @Component({
   selector: 'app-auth',
@@ -13,18 +16,20 @@ import { Router } from '@angular/router';
   templateUrl: './auth.component.html',
   styleUrl: './auth.component.css'
 })
+
+
 export class AuthComponent {
   public email: string = ''
   public password: string = ''
 
-  constructor(private router: Router) {}
+  constructor(private router: Router, private toastr: ToastrService) {}
 
   doLogin() {
     if(UserService.doLogin(this.email, this.password)) {
       this.router.navigate(['/'])
       return
     } else {
-      alert('Error while logging')
+      this.toastr.error('Error while logging')
     }
   }
 }
